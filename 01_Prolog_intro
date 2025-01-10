@@ -1,0 +1,446 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/KsenijaLaukel/czteria/blob/main/01_Prolog_intro\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 5,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "Cu30hTQocc49",
+        "outputId": "523b5999-d103-492d-e303-30eaa3b0e1d1"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "True\n"
+          ]
+        }
+      ],
+      "source": [
+        "#1\n",
+        "\n",
+        "fakty = {\n",
+        "    'ojciec':[('Jan','Anna'),('Igor','Marta')],\n",
+        "    'matka':[('Kasia','Anna'),('Wiktoria','Marta')]\n",
+        "    }\n",
+        "\n",
+        "\n",
+        "def czy_jest_ojcem(osoba1, osoba2):\n",
+        "    return (osoba1, osoba2) in fakty.get('ojciec', [])\n",
+        "\n",
+        "print(czy_jest_ojcem('Jan', 'Anna'))"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#2\n",
+        "\n",
+        "fakty ={\n",
+        "    'ojciec':[('Jan','Anna'),('Igor','Marta')],\n",
+        "    'matka':[('Kasia','Anna'),('Wiktoria','Marta')]\n",
+        "    }\n",
+        "\n",
+        "def czy_jest_rodzicem (osoba1, osoba2):\n",
+        "\n",
+        "    return (osoba1, osoba2) in fakty.get('ojciec', []) or (osoba1, osoba2) in fakty.get('matka', [])\n",
+        "\n",
+        "print(czy_jest_rodzicem ('Jan', 'Anna'))"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "s4ywzgstddBK",
+        "outputId": "4144f4f9-4166-4620-c49e-e06356208d11"
+      },
+      "execution_count": 7,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "True\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#3\n",
+        "fakty ={\n",
+        "    'ojciec':[('Jan','Anna'),('Igor','Marta')],\n",
+        "    'matka':[('Kasia','Anna'),('Wiktoria','Marta')]\n",
+        "    }\n",
+        "\n",
+        "def czy_jest_rodzicem(osoba1, osoba2):\n",
+        " return (osoba1, osoba2) in fakty.get('ojciec', []) or (osoba1, osoba2) in fakty.get('matka', [])\n",
+        "\n",
+        "def dodaj_dziadków():\n",
+        "  fakty['ojciec'].extend([('Marian','Anna'),('Mikolaj','Marta')])\n",
+        "\n",
+        "\n",
+        "def czy_jest_dziadkiem (osoba1, osoba2):\n",
+        "\n",
+        "\n",
+        "    for rodzic in fakty.get('ojciec', []) + fakty.get('matka', []):\n",
+        "        if rodzic[1] == osoba2:\n",
+        "            if czy_jest_rodzicem(osoba1, rodzic[0]):\n",
+        "                return True\n",
+        "    return False\n",
+        "\n",
+        "\n",
+        "print(czy_jest_dziadkiem('Marian','Anna'))"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "YVfdBeUpeTR_",
+        "outputId": "22706bbe-980f-4635-dc24-c0a88ab80bee"
+      },
+      "execution_count": 18,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "False\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#4\n",
+        "\n",
+        "fakty = {\n",
+        "    'ojciec': [('Lida', 'Anna'), ('Anna', 'Kasia')],\n",
+        "    'matka': [('Maria', 'Anna'), ('Ewa', 'Kasia')]\n",
+        "}\n",
+        "\n",
+        "def czy_jest_rodzicem(osoba1, osoba2):\n",
+        "    return (osoba1, osoba2) in fakty.get('ojciec', []) or (osoba1, osoba2) in fakty.get('matka', [])\n",
+        "\n",
+        "def czy_jest_siostra(x, y):\n",
+        "    for rodzic in fakty.get('ojciec', []) + fakty.get('matka', []):\n",
+        "        if rodzic[1] == x:\n",
+        "            if czy_jest_rodzicem(rodzic[0], y):\n",
+        "                if x != y:\n",
+        "                     return True\n",
+        "    return False\n",
+        "\n",
+        "print(czy_jest_siostra('Lida', 'Anna'))"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "BIBkkgxzfKV1",
+        "outputId": "fa78110f-02d7-4a95-f5c0-e7e098f08308"
+      },
+      "execution_count": 22,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "False\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#5\n",
+        "fakty = {\n",
+        "    'ojciec': [('Jan', 'Anna'), ('Piotr', 'Kasia')],\n",
+        "    'matka': [('Maria', 'Anna'), ('Ewa', 'Kasia')]\n",
+        "}\n",
+        "\n",
+        "def czy_jest_rodzicem(osoba1, osoba2):\n",
+        "    return (osoba1, osoba2) in fakty['ojciec'] or (osoba1, osoba2) in fakty['matka']\n",
+        "\n",
+        "print(czy_jest_rodzicem('Jan', 'Anna'))"
+      ],
+      "metadata": {
+        "id": "UY0mFn7Bj7iV",
+        "outputId": "56fa0b4c-cbd7-447f-ca12-a28133b8a09d",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        }
+      },
+      "execution_count": 25,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "True\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#6\n",
+        "fakty = {\n",
+        "    'ojciec': [('Jan', 'Anna'), ('Piotr', 'Kasia')],\n",
+        "    'matka': [('Maria', 'Anna'), ('Ewa', 'Kasia')]\n",
+        "}\n",
+        "\n",
+        "def czyj_rodzic(rodzic):\n",
+        "    dzieci = []\n",
+        "\n",
+        "    for ojciec, dziecko in fakty['ojciec']:\n",
+        "        if ojciec == rodzic:\n",
+        "            dzieci.append(dziecko)\n",
+        "\n",
+        "    for matka, dziecko in fakty['matka']:\n",
+        "        if matka == rodzic:\n",
+        "            dzieci.append(dziecko)\n",
+        "    return dzieci\n",
+        "\n",
+        "print(czyj_rodzic('Piotr'))"
+      ],
+      "metadata": {
+        "id": "2EbrWGz3mDm0",
+        "outputId": "940f27bf-9d49-4ac2-c7a2-17e32fb1ba2b",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        }
+      },
+      "execution_count": 27,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "['Kasia']\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#7\n",
+        "fakty = {\n",
+        "    'ojciec': [('Jan', 'Anna'), ('Piotr', 'Kasia')],\n",
+        "    'matka': [('Maria', 'Anna'), ('Ewa', 'Kasia')]\n",
+        "}\n",
+        "\n",
+        "def rodzic_bez_cut(rodzic):\n",
+        "    dzieci = []\n",
+        "    for ojciec, dziecko in fakty['ojciec']:\n",
+        "        if ojciec == rodzic:\n",
+        "            dzieci.append(dziecko)\n",
+        "    for matka, dziecko in fakty['matka']:\n",
+        "        if matka == rodzic:\n",
+        "            dzieci.append(dziecko)\n",
+        "    return dzieci\n",
+        "\n",
+        "def rodzic_cut(rodzic):\n",
+        "    for ojciec, dziecko in fakty['ojciec']:\n",
+        "        if ojciec == rodzic:\n",
+        "            return dziecko\n",
+        "    for matka, dziecko in fakty['matka']:\n",
+        "        if matka == rodzic:\n",
+        "            return dziecko\n",
+        "    return None\n",
+        "\n",
+        "print(\"rodzic_bez_cut:\")\n",
+        "print(rodzic_bez_cut('Jan'))"
+      ],
+      "metadata": {
+        "id": "EhChKGngnieL",
+        "outputId": "d4d62f2d-0cea-46a8-85a3-70409899fb99",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        }
+      },
+      "execution_count": 30,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "rodzic_bez_cut:\n",
+            "['Anna']\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#8\n",
+        "fakty = {\n",
+        "    'ojciec': [('Jan', 'Anna'), ('Piotr', 'Kasia')],\n",
+        "    'matka': [('Maria', 'Anna'), ('Ewa', 'Kasia')]\n",
+        "}\n",
+        "\n",
+        "def rodzic(x, y):\n",
+        "\n",
+        "    for ojciec, dziecko in fakty['ojciec']:\n",
+        "        if ojciec == x and dziecko == y:\n",
+        "            return True\n",
+        "\n",
+        "    for matka, dziecko in fakty['matka']:\n",
+        "        if matka == x and dziecko == y:\n",
+        "            return True\n",
+        "    return False\n",
+        "\n",
+        "print(rodzic('Jan', 'Anna'))"
+      ],
+      "metadata": {
+        "id": "AZMCBhnJpCA3",
+        "outputId": "5611b591-e86f-4b79-df57-7a2cb545faff",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        }
+      },
+      "execution_count": 31,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "True\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#9\n",
+        "fakty = {\n",
+        "    'ojciec': [('Jan', 'Anna'), ('Piotr', 'Kasia')],\n",
+        "    'matka': [('Maria', 'Anna'), ('Ewa', 'Kasia')],\n",
+        "     'wiek': {\n",
+        "        'Jan': 50,\n",
+        "        'Maria': 48,\n",
+        "        'Piotr': 45,\n",
+        "        'Ewa': 42,\n",
+        "        'Anna': 20,\n",
+        "        'Kasia': 18\n",
+        "    }\n",
+        "}\n",
+        "def starszy(x, y):\n",
+        "    wiek_x = fakty['wiek'].get(x)\n",
+        "    wiek_y = fakty['wiek'].get(y)\n",
+        "\n",
+        "    if wiek_x is None or wiek_y is None:\n",
+        "        return False\n",
+        "\n",
+        "        if wiek_x > wiek_y:\n",
+        "          return True\n",
+        "    return False\n",
+        "\n",
+        "print(starszy('Jan', 'Anna'))"
+      ],
+      "metadata": {
+        "id": "VYyDw7lTqg-E",
+        "outputId": "f6eddcf5-dc38-4d1a-d229-859704235f81",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        }
+      },
+      "execution_count": 34,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "False\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#10\n",
+        "fakty = {\n",
+        "    'ojciec': [('Jan', 'Anna'), ('Piotr', 'Kasia')],\n",
+        "    'matka': [('Maria', 'Anna'), ('Ewa', 'Kasia')],\n",
+        "     'wiek': {\n",
+        "        'Jan': 50,\n",
+        "        'Maria': 48,\n",
+        "        'Piotr': 45,\n",
+        "        'Ewa': 42,\n",
+        "        'Anna': 20,\n",
+        "        'Kasia': 18\n",
+        "    }\n",
+        "}\n",
+        "def wiek_wiecej_niz(n):\n",
+        "    print(f\"Osoby starsze niż {n} lat:\")\n",
+        "    znaleziono = False\n",
+        "    for osoba, wiek in fakty['wiek'].items():\n",
+        "        if wiek > n:\n",
+        "            print(osoba)\n",
+        "            znaleziono = True\n",
+        "    if not znaleziono:\n",
+        "        print(\"Brak osób spełniających kryterium.\")\n",
+        "\n",
+        "print(wiek_wiecej_niz(40))"
+      ],
+      "metadata": {
+        "id": "16rJ0REQu_AN",
+        "outputId": "6f00df38-b6b8-45ab-dfc9-c7020bdaa14b",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        }
+      },
+      "execution_count": 35,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Osoby starsze niż 40 lat:\n",
+            "Jan\n",
+            "Maria\n",
+            "Piotr\n",
+            "Ewa\n",
+            "None\n"
+          ]
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyOSLvpgRr+K99/QW6vNJk9l",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "display_name": "Python 3",
+      "name": "python3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 0
+}
